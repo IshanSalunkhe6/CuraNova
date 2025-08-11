@@ -1,9 +1,13 @@
 fastapi==0.111.0
 uvicorn==0.30.1
 python-dotenv==1.0.1
-pydantic==2.33.2
+
+# Use a pydantic that depends on pydantic-core >= 2.20 (available on your image)
+pydantic==2.8.2
+# (Don't pin pydantic-core explicitly—let pydantic pull the matching one)
+
 motor==3.6.0
-bcrypt==4.0.1
+bcrypt==4.0.1              # avoids Rust build on Render; pulls manylinux wheels
 pyjwt==2.8.0
 python-multipart==0.0.9
-email-validator==2.2.0
+email-validator==2.2.0     # needed for EmailStr in your models
