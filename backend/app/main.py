@@ -7,8 +7,7 @@ app = FastAPI(title="CuraNova API", version="1.0.0")
 origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    # "https://<your-vercel-project>.vercel.app",
-    # "https://<your-custom-domain>",
+
 ]
 
 app.add_middleware(

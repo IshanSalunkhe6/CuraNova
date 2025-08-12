@@ -5,7 +5,7 @@ import os
 load_dotenv()
 
 class Settings(BaseModel):
-    # Atlas SRV URI like: mongodb+srv://user:pass@cluster.mongodb.net/?retryWrites=true&w=majority
+
     MONGODB_URI: str = os.getenv("MONGODB_URI", "mongodb://127.0.0.1:27017")
     # Explicit DB name (so we don't rely on /<db> in the URI)
     DB_NAME: str = os.getenv("DB_NAME", "medai")
