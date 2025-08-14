@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏥 CuraNova – AI-Powered Medical Tools Platform
 
-## Getting Started
+CuraNova is an AI-driven platform designed to empower **medical students**, **researchers**, and **healthcare professionals** with intelligent, domain-specific tools.
+It brings together advanced **Natural Language Processing (NLP)** models, secure web infrastructure, and user-friendly interfaces to help users work efficiently with medical information.
 
-First, run the development server:
+Currently, CuraNova includes two specialized tools:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+* **CuraChat** – An AI medical assistant with Retrieval-Augmented Generation (RAG).
+* **[CuraScan](https://disease-extraction-system.vercel.app/)** – A disease term extraction and highlighting tool powered by BioBERT.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 📌 Platform Overview
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+CuraNova acts as a **central hub** that provides:
 
-## Learn More
+* A secure, authenticated environment for users.
+* A dashboard to access and launch AI-powered medical tools.
+* A unified design and branding for a consistent user experience.
+* Clear navigation between tools without forcing users to manage multiple logins.
 
-To learn more about Next.js, take a look at the following resources:
+The platform focuses on **speed, reliability, and privacy**, ensuring medical data is handled responsibly.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ✨ Features
 
-## Deploy on Vercel
+### **1. Unified Medical AI Workspace**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* All tools accessible from a single interface.
+* No need to juggle multiple apps — CuraNova keeps them in one place.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### **2. Secure User Authentication**
+
+* Email/password signup and login system.
+* JWT-based authentication with secure, HTTP-only cookies.
+* Encrypted password storage using **bcrypt**.
+* Hosted on **Render (backend)** + **Vercel (frontend)** + **MongoDB Atlas** for reliability and scalability.
+
+### **3. Tool: CuraChat – AI Medical Assistant**
+
+* **Two Modes**:
+
+  * **Docs-Only Mode (RAG):** Answers strictly from uploaded PDFs/DOCX using **Jina v3 embeddings** + **ChromaDB** vector store.
+  * **General Medical Mode:** Provides concise answers to general medical questions without requiring documents.
+* **Medical Upload Guard:** LLM-based classifier to ensure only relevant medical documents are processed.
+* **Chat History Logging:** Stores conversations and context in MongoDB for continuity.
+* **Use Cases:**
+
+  * Extract guidelines from research papers.
+  * Quickly answer clinical questions from a literature set.
+  * Maintain context-aware, follow-up conversations.
+
+### **4. Tool: CuraScan – Disease Term Extractor**
+
+* Powered by **fine-tuned BioBERT** (`Ishan0612/biobert-ner-disease-ncbi`).
+* Detects and highlights **disease mentions** in biomedical text and PDFs.
+* **High Accuracy Metrics**:
+
+  * Accuracy: **98.64%**
+  * F1-Score: **89.04%**
+  * Precision: **86.80%**
+  * Recall: **91.39%**
+* **PDF & Text Support** – Process documents or paste raw text.
+* Ideal for:
+
+  * Rapid literature review.
+  * Annotating research datasets.
+  * Medical education & exam preparation.
+
+### **5. Cloud-Native & Accessible Anywhere**
+
+* **Frontend Hosting:** Vercel (Next.js) and Streamlit Cloud.
+* **Backend Hosting:** Render and Hugging Face Spaces.
+* **Zero Local Setup:** All tools run fully in the browser.
+* **Mobile-Friendly UI** for on-the-go usage.
+
+---
+
+## 🛡 Security & Privacy
+
+CuraNova is built with **data security** as a top priority:
+
+* Encrypted database storage for sensitive information.
+* Secure cookies with HTTPS in production.
+* No storage of uploaded documents beyond what’s needed for processing.
+* No raw passwords stored — only bcrypt hashes.
+* JWT tokens signed with strong secrets.
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
+
+
