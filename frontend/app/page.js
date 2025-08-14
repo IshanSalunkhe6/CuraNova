@@ -51,7 +51,7 @@ export default async function Page() {
               title="CuraChat"
               subtitle="Medical RAG Chatbot"
               description="Ask grounded questions on your uploaded medical documents. Sources cited with page links."
-              href="https://curachat-kswi7cug3ghuxktwidgobf.streamlit.app/"
+              href={process.env.NEXT_PUBLIC_CURACHAT_URL}
               tag="RAG"
               image="/curachat.jpg"
             />
