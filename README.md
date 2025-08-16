@@ -1,7 +1,8 @@
 # 🏥 CuraNova – AI-Powered Medical Tools Platform
 
-CuraNova is an AI-driven platform designed to empower **medical students**, **researchers**, and **healthcare professionals** with intelligent, domain-specific tools.
-It brings together advanced **Natural Language Processing (NLP)** models, secure web infrastructure, and user-friendly interfaces to help users work efficiently with medical information.
+CuraNova is an AI-driven platform built to empower **medical students**, **researchers**, and **healthcare professionals** with intelligent, domain-specific tools.
+
+It combines advanced **Natural Language Processing (NLP)**, secure web infrastructure, and intuitive interfaces to help users work more efficiently with medical information.
 
 Currently, CuraNova includes two specialized tools:
 
@@ -14,66 +15,84 @@ Currently, CuraNova includes two specialized tools:
 
 CuraNova acts as a **central hub** that provides:
 
-* A secure, authenticated environment for users.
-* A dashboard to access and launch AI-powered medical tools.
-* A unified design and branding for a consistent user experience.
-* Clear navigation between tools without forcing users to manage multiple logins.
+* Secure, authenticated access for users.
+* A unified dashboard to launch AI-powered medical tools.
+* Consistent design and branding for a seamless experience.
+* Smooth navigation between tools without juggling multiple logins.
 
-The platform focuses on **speed, reliability, and privacy**, ensuring medical data is handled responsibly.
+The platform focuses on **speed, reliability, and privacy**, ensuring medical data is always handled responsibly.
 
 ---
 
 ## ✨ Features
 
-### **1. Unified Medical AI Workspace**
+### 1. Unified Medical AI Workspace
 
-* All tools accessible from a single interface.
-* No need to juggle multiple apps — CuraNova keeps them in one place.
+* Access multiple AI tools from a single interface.
+* Eliminate the need to manage multiple separate applications.
 
-### **2. Secure User Authentication**
+### 2. Secure User Authentication
 
 * Email/password signup and login system.
-* JWT-based authentication with secure, HTTP-only cookies.
+* **JWT-based authentication** with HTTP-only cookies.
 * Encrypted password storage using **bcrypt**.
-* Hosted on **Render (backend)** + **Vercel (frontend)** + **MongoDB Atlas** for reliability and scalability.
+* Hosting: **Render (backend)** + **Vercel (frontend)** + **MongoDB Atlas**.
 
-### **3. Tool: CuraChat – AI Medical Assistant**
+### 3. Tool: **CuraChat – AI Medical Assistant**
 
 * **Two Modes**:
 
   * **Docs-Only Mode (RAG):** Answers strictly from uploaded PDFs/DOCX using **Jina v3 embeddings** + **ChromaDB** vector store.
   * **General Medical Mode:** Provides concise answers to general medical questions without requiring documents.
-* **Medical Upload Guard:** LLM-based classifier to ensure only relevant medical documents are processed.
-* **Chat History Logging:** Stores conversations and context in MongoDB for continuity.
-* **Use Cases:**
+* **Medical Upload Guard:** LLM-based classifier to filter only relevant medical documents.
+* **Chat History Logging:** Stores conversations in MongoDB for continuity.
 
-  * Extract guidelines from research papers.
-  * Quickly answer clinical questions from a literature set.
-  * Maintain context-aware, follow-up conversations.
+**Use Cases**:
 
-### **4. Tool: CuraScan – Disease Term Extractor**
+* Extract guidelines from research papers.
+* Quickly answer clinical questions from uploaded literature.
+* Maintain context-aware follow-up conversations.
+
+#### 🛠 Tech Stack (CuraChat – Backend)
+
+⚡ **FastAPI** – REST API framework
+🚀 **Uvicorn** – ASGI server
+🔗 **LangChain** – RAG pipeline (retrievers, prompts, chains)
+📂 **ChromaDB** – Local vector store for embeddings
+🧠 **Jina Embeddings v3** – Document embeddings
+🤖 **Groq LLMs** – `llama-3.1-8b-instant` (fast), `llama-3.1-70b-versatile` (optional)
+📄 **PyPDF / Docx2txt** – PDF & DOCX loaders
+🗄 **MongoDB Atlas** – Chat logs & document registry
+✅ **Pydantic** – Typed models & validation
+🔑 **python-dotenv** – Environment variable management
+📦 **pymongo** – MongoDB driver
+
+---
+
+### 4. Tool: **CuraScan – Disease Term Extractor**
 
 * Powered by **fine-tuned BioBERT** (`Ishan0612/biobert-ner-disease-ncbi`).
 * Detects and highlights **disease mentions** in biomedical text and PDFs.
-* **High Accuracy Metrics**:
+* **Performance Metrics**:
 
   * Accuracy: **98.64%**
   * F1-Score: **89.04%**
   * Precision: **86.80%**
   * Recall: **91.39%**
-* **PDF & Text Support** – Process documents or paste raw text.
-* Ideal for:
+* **PDF & Text Support** – Process research papers or paste raw text.
 
-  * Rapid literature review.
-  * Annotating research datasets.
-  * Medical education & exam preparation.
+**Use Cases**:
 
-### **5. Cloud-Native & Accessible Anywhere**
+* Rapid literature review.
+* Annotating research datasets.
+* Medical education & exam preparation.
 
-* **Frontend Hosting:** Vercel (Next.js) and Streamlit Cloud.
-* **Backend Hosting:** Render and Hugging Face Spaces.
-* **Zero Local Setup:** All tools run fully in the browser.
-* **Mobile-Friendly UI** for on-the-go usage.
+#### ⚙️ Tech Stack (CuraScan)
+
+* **Backend:** FastAPI (Hugging Face Spaces)
+* **NLP:** Fine-tuned BioBERT for Disease NER
+* **PDF Processing:** PyMuPDF
+* **Deployment:** Vercel + Hugging Face Spaces (Docker)
 
 ---
 
@@ -81,16 +100,47 @@ The platform focuses on **speed, reliability, and privacy**, ensuring medical da
 
 CuraNova is built with **data security** as a top priority:
 
-* Encrypted database storage for sensitive information.
+* Encrypted database storage for sensitive data.
 * Secure cookies with HTTPS in production.
-* No storage of uploaded documents beyond what’s needed for processing.
-* No raw passwords stored — only bcrypt hashes.
+* Uploaded documents are **not stored long-term** — only for processing.
+* Passwords stored only as **bcrypt hashes**, never in plaintext.
 * JWT tokens signed with strong secrets.
+
+---
+
+## 🌐 Tech Stack (CuraNova Website)
+
+### **Frontend**
+
+* ⚛ **Next.js (App Router)** – React framework for website & dashboard
+* 🎨 **Tailwind CSS + DaisyUI** – Styling and responsive UI
+* 🧩 **Custom Components** – Header, Footer, Hero, ValueGrid, Product Cards
+* 🔐 **Next.js Server Components** – Reads cookies & handles session state
+* 🌐 **API Helper (lib/api.js)** – Centralized communication with backend
+
+### **Backend**
+
+* ⚡ **FastAPI** – REST API for authentication
+* 🚀 **Uvicorn** – ASGI server
+* 🔑 **bcrypt** – Password hashing
+* 🔒 **JWT (PyJWT)** – Secure authentication tokens
+* 📦 **Motor (async MongoDB driver)** – Database access
+* 📄 **Pydantic** – Request/response validation
+
+### **Database**
+
+* 🗄 **MongoDB Atlas** – Stores user accounts & sessions
+
+### **Deployment**
+
+* ☁️ **Vercel** – Hosts the Next.js frontend
+* ☁️ **Render** – Hosts the FastAPI backend
+* ☁️ **MongoDB Atlas** – Cloud database
 
 ---
 
 ## 📜 License
 
-This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
 
-
+---
