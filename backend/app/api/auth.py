@@ -14,7 +14,7 @@ from app.models.user import UserIn, UserLogin, UserOut
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 # -----------------------------
-# MongoDB client (singleton)
+# MongoDB client (singleton)          do connection once with mongo.
 # -----------------------------
 _mongo_client: AsyncIOMotorClient | None = None
 _db = None
@@ -29,14 +29,18 @@ def _get_db_ref():
     return _db
 
 # FastAPI dependency
-async def get_db():
+async def get_db():     # above connection is made this func return it
     yield _get_db_ref()
 
-def to_user_out(doc) -> UserOut:
+
+
+def to_user_out(doc) -> UserOut:   # doc is validated and return in proper format to frontend.password not leaked
     return UserOut(id=str(doc["_id"]), name=doc["name"], email=doc["email"])
 
+
+
 @router.post("/signup", response_model=UserOut, status_code=status.HTTP_201_CREATED)
-async def signup(payload: UserIn, res: Response, db=Depends(get_db)):
+async def signup(payload: UserIn, res: Response, db=Depends(get_db)):  # payload is data coming from frontend
     users = db["users"]
     existing = await users.find_one({"email": payload.email})
     if existing:
@@ -49,7 +53,7 @@ async def signup(payload: UserIn, res: Response, db=Depends(get_db)):
 
     token = create_token({"id": str(result.inserted_id), "email": payload.email, "name": payload.name})
     res.set_cookie(key=COOKIE_NAME, value=token, **cookie_kwargs())
-    return to_user_out(doc)
+    return to_user_out(doc)   # RETURN TO FRONTEND in proper format id email name
 
 @router.post("/signin", response_model=UserOut)
 async def signin(payload: UserLogin, res: Response, db=Depends(get_db)):

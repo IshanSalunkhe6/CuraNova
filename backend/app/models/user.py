@@ -13,3 +13,11 @@ class UserOut(BaseModel):
     id: str
     name: str
     email: EmailStr
+
+
+# UserIn → for signup (name, email, password).
+
+# UserLogin → for signin (email, password).
+
+# UserOut → safe response (no password).
+
